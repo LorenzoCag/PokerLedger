@@ -49,13 +49,22 @@ public class PaymentCalculatorGUI extends JFrame {
             PaymentCalculator calculator = new PaymentCalculator();
             for (int i = 0; i < 12; i++) {
                 String name = playerNames[i].getText();
+                if (name == null || name.trim().isEmpty()) {
+                    continue; // Skip this player if the name field is empty
+                }
                 double buyIn = Double.parseDouble(buyIns[i].getText());
                 double buyOut = Double.parseDouble(buyOuts[i].getText());
+    
                 Player player = new Player(name, buyIn);
                 player.setFinalAmount(buyOut);
                 player.calculateBalance();
-                calculator.addPlayer(player); // Assume addPlayer method is added to PaymentCalculator
+                calculator.addPlayer(player);
             }
+            if (calculator.getPlayersCount() < 2) {
+                resultArea.setText("Error: At least 2 players are required.");
+                return;
+            }
+    
             calculator.validateTotals();
             List<Transactions> transactions = calculator.calculateTransactions();
             StringBuilder resultText = new StringBuilder();
@@ -67,6 +76,7 @@ public class PaymentCalculatorGUI extends JFrame {
             resultArea.setText("Error: " + ex.getMessage());
         }
     }
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(PaymentCalculatorGUI::new);

@@ -14,6 +14,10 @@ public class PaymentCalculator {
         players.add(player);
     }
 
+    public int getPlayersCount() {
+        return players.size();
+    }
+
 
     public void parseInput(String input) {
         String[] parts = input.split(" "); //splits input by spaces and puts them into an array

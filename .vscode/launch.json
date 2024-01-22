@@ -4,7 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "PaymentCalculatorGUI",
+            "request": "launch",
+            "mainClass": "BackendJava.PaymentCalculatorGUI",
+            "projectName": "PokerLedger_cc7ff9c9"
+        },
         {
             "type": "java",
             "name": "Current File",
@@ -17,8 +23,9 @@
             "request": "launch",
             "mainClass": "BackendJava.Main",
             "projectName": "PokerLedger_cc7ff9c9",
-            "args": ["Lorro 20 30 Joe 30 20"]
-            
+            "args": [
+                "Lorro 20 30 Joe 30 20"
+            ]
         }
     ]
 }
