@@ -17,7 +17,7 @@
             "request": "launch",
             "mainClass": "BackendJava.Main",
             "projectName": "PokerLedger_cc7ff9c9",
-            "args": []
+            "args": ["Lorro 20 30 Joe 30 20"]
             
         }
     ]
