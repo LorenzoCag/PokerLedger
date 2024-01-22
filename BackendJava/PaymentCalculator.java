@@ -26,7 +26,13 @@ public class PaymentCalculator {
     }
 
 
-    public List<Transactions> calculateTransactions() {
+    //Players sorted by balance. Negative means they owe money, 
+    //positive means they are owed. A loop then iterates over the list,
+    //and the amount is th eminimum amount between the absolute value of
+    //the creditor and the debtor. This is then added to the list of transactions.
+    //at the end, if the debtor's balance is 0, you move on to the next transaction,
+    //while if the creditor balance is 0, you move on to the next creditor.
+    public List<Transactions> calculateTransactions() {     
         // Sort players by balance
         players.sort(Comparator.comparingDouble(Player::getBalance));
 

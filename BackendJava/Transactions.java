@@ -13,7 +13,7 @@ public class Transactions {
 
 
 
-
+//this is what will ultimately be output
     public String toString() {
         return payer + " owes " + receiver + " $" + String.format("%.2f", amount);
     }
