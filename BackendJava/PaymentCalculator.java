@@ -10,6 +10,10 @@ public class PaymentCalculator {
         players = new ArrayList<>();
     }
 
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
+
 
     public void parseInput(String input) {
         String[] parts = input.split(" "); //splits input by spaces and puts them into an array

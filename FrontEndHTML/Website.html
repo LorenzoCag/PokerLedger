@@ -1,46 +1,114 @@
-<div style="width: 100%; height: 100%; position: relative; background: #478668; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-    <div style="width: 597px; height: 142px; color: black; font-size: 48px; font-family: Inter; font-weight: 700; word-wrap: break-word">Poker Payout Calculator</div>
-    <div style="width: 129px; height: 38px; color: black; font-size: 32px; font-family: Inter; font-weight: 700; word-wrap: break-word">Player</div>
-    <div style="width: 129px; height: 38px; color: black; font-size: 32px; font-family: Inter; font-weight: 700; word-wrap: break-word">Buy Out</div>
-    <div style="width: 129px; height: 38px; color: black; font-size: 32px; font-family: Inter; font-weight: 700; word-wrap: break-word">Buy In</div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 144px; height: 49px; color: black; font-size: 32px; font-family: Inter; font-weight: 700; word-wrap: break-word">Payouts</div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 435px; height: 582px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 183px; height: 55px; background: #BB3333"></div>
-    <div style="width: 160px; height: 48px; color: black; font-size: 32px; font-family: Inter; font-weight: 700; word-wrap: break-word">Calculate</div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-    <div style="width: 127px; height: 45px; background: #89BA9C"></div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Website</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .input-section, .output-section {
+            width: 50%;
+        }
+        .input-section table {
+            width: 100%;
+        }
+        .input-section td {
+            padding: 10px;
+        }
+        .output-section {
+            border: 1px solid black;
+            padding: 10px;
+            height: 300px; /* Adjust as needed */
+            overflow-y: auto; /* Enables scrolling if content is too long */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-section">
+            <table>
+                <tr>
+                    <th>Player</th>
+                    <th>Buy-in</th>
+                    <th>Buy-out</th>
+                </tr>
+                <!-- Rows for 12 players -->
+                <tr>
+                    <td><input type="text" name="player1"></td>
+                    <td><input type="number" name="buy_in1"></td>
+                    <td><input type="number" name="buy_out1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player2"></td>
+                    <td><input type="number" name="buy_in2"></td>
+                    <td><input type="number" name="buy_out2"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player3"></td>
+                    <td><input type="number" name="buy_in3"></td>
+                    <td><input type="number" name="buy_out3"></td>
+                </tr>
+                <!-- Repeat for remaining players -->
+                <tr>
+                    <td><input type="text" name="player4"></td>
+                    <td><input type="number" name="buy_in4"></td>
+                    <td><input type="number" name="buy_out4"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player5"></td>
+                    <td><input type="number" name="buy_in5"></td>
+                    <td><input type="number" name="buy_out5"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player6"></td>
+                    <td><input type="number" name="buy_in6"></td>
+                    <td><input type="number" name="buy_out6"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player7"></td>
+                    <td><input type="number" name="buy_in7"></td>
+                    <td><input type="number" name="buy_out7"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player8"></td>
+                    <td><input type="number" name="buy_in8"></td>
+                    <td><input type="number" name="buy_out8"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player9"></td>
+                    <td><input type="number" name="buy_in9"></td>
+                    <td><input type="number" name="buy_out9"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player10"></td>
+                    <td><input type="number" name="buy_in10"></td>
+                    <td><input type="number" name="buy_out10"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player11"></td>
+                    <td><input type="number" name="buy_in11"></td>
+                    <td><input type="number" name="buy_out11"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="player12"></td>
+                    <td><input type="number" name="buy_in12"></td>
+                    <td><input type="number" name="buy_out12"></td>
+                </tr>
+            </table>
+            <button onclick="calculatePayouts()">Calculate</button>
+        </div>
+        <div class="output-section" id="payouts">
+            <h3>Payouts</h3>
+            <!-- Payouts will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        function calculatePayouts() {
+            // You'll need to connect this function to your Java backend logic
+            // This function will gather the input data, send it to the backend, and display the output in the 'payouts' div
+        }
+    </script>
+</body>
+</html>
