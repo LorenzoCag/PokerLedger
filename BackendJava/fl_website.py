@@ -60,6 +60,7 @@ def index():
                     <div></div> <!-- Placeholder for left alignment -->
                     <div class="button-group">
                         <button type="button" onclick="addPlayer()">Add Another Player</button>
+                        <button type="button" onclick="resetForm()">Reset</button>
                         <button type="button" id="calculate-payouts" onclick="calculatePayouts()">Calculate Payouts</button>
 
 
@@ -110,6 +111,17 @@ def index():
             form.appendChild(playerGroup);
             playerCount++;
         }
+        function resetForm() {
+    const form = document.getElementById('tournament-form');
+    form.innerHTML = ''; // Clear all child elements (player input groups)
+    playerCount = 1; // Reset player count to initial value
+
+    // Optionally clear the payouts section if you're displaying results there
+    const payoutsElement = document.getElementById('payouts');
+    if (payoutsElement) {
+        payoutsElement.innerHTML = '';
+    }
+}
 
         function calculatePayouts() {
     event.preventDefault(); // Prevent the default form action
