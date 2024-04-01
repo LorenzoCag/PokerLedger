@@ -35,16 +35,16 @@ def index():
             gap: 16px;
             margin-bottom: 20px;
         }
+        
     </style>
 </head>
 <body>
     <nav class="container-fluid">
         <ul>
-            <li><strong>Poker Tournament</strong></li>
+            <li><strong>Poker Cash Game Payout Calculatort</strong></li>
         </ul>
         <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
             
         </ul>
     </nav>
