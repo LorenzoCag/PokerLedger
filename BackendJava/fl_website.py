@@ -1,3 +1,12 @@
+from flask import Flask, request, jsonify, render_template_string
+
+from poker import PokerPayoutCalculator
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    html_content = '''
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,7 +60,9 @@
                     <div></div> <!-- Placeholder for left alignment -->
                     <div class="button-group">
                         <button type="button" onclick="addPlayer()">Add Another Player</button>
-                        <button type="button" onclick="event.preventDefault()">Calculate Payouts</button>
+                        <button type="button" id="calculate-payouts" onclick="calculatePayouts()">Calculate Payouts</button>
+
+
                     </div>
                 </div>
                 <!-- Form Begins Here -->
@@ -99,6 +110,70 @@
             form.appendChild(playerGroup);
             playerCount++;
         }
+
+        function calculatePayouts() {
+    event.preventDefault(); // Prevent the default form action
+    const players = [];
+    for (let i = 1; i < playerCount; i++) {
+        players.push({
+            name: document.getElementById(`player${i}-name`).value,
+            buyIn: parseFloat(document.getElementById(`player${i}-buy-in`).value),
+            buyOut: parseFloat(document.getElementById(`player${i}-buy-out`).value)
+        });
+    }
+
+    fetch('/calculate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ players: players })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const payoutsElement = document.getElementById('payouts');
+        payoutsElement.innerHTML = ''; // Clear previous results
+        if (data.success) {
+            data.transactions.forEach(transaction => {
+                const p = document.createElement('p');
+                p.textContent = transaction;
+                payoutsElement.appendChild(p);
+            });
+        } else {
+            // If there was an error, display it
+            payoutsElement.textContent = 'Error: ' + data.error;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const payoutsElement = document.getElementById('payouts');
+        payoutsElement.textContent = 'Error: Unable to calculate payouts.';
+    });
+}
     </script>
 </body>
 </html>
+
+    '''
+    return render_template_string(html_content)
+
+@app.route('/calculate', methods=['POST'])
+def calculate():
+    data = request.json
+    calculator = PokerPayoutCalculator()
+    for player in data['players']:
+        name = player['name']
+        buy_in = player['buyIn']
+        final_amount = player['buyOut']
+        calculator.add_player(name, buy_in, final_amount)
+
+    try:
+        transactions = calculator.calculate_transactions()
+        calculator.validate_totals()
+        transactions_output = [str(transaction) for transaction in transactions]
+        return jsonify({'success': True, 'transactions': transactions_output})
+    except ValueError as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+if __name__ == '__main__':
+    app.run(debug=True)
