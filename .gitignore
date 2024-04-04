@@ -1,2 +1,48 @@
 # Local Netlify folder
 .netlify
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*~
+*.pyc
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Netlify folder
+.netlify/
+
+# Python debug log
+*.log
+
+# Flask instance folder
+instance/
+
+# Environment variables
+.env
+
+
+
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv local version file
+.python-version
+
+# pipenv
+Pipfile.lock
