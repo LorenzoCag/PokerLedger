@@ -1,2 +1,2 @@
 # PokerLedger
-I changed up the readme a little
+I changed up the readme a little.
