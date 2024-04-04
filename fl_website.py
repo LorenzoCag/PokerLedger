@@ -41,7 +41,7 @@ def index():
 <body>
     <nav class="container-fluid">
         <ul>
-            <li><strong>Poker Cash Game Payout Calculatort</strong></li>
+            <li><strong>Poker Cash Game Payout Calculator</strong></li>
         </ul>
         <ul>
             <li><a href="#">Home</a></li>
