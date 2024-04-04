@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <title>Poker Payout Manager</title>
     <style>
+        /* Additional styles for button alignment */
         .form-header {
             display: flex;
             justify-content: space-between;
@@ -26,42 +27,51 @@
             gap: 16px;
             margin-bottom: 20px;
         }
+        
     </style>
 </head>
 <body>
     <nav class="container-fluid">
         <ul>
-            <li><strong>Poker Cash Game payout Calculator</strong></li>
+            <li><strong>Poker Cash Game Payout Calculator</strong></li>
         </ul>
         <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="/pokernow">PokerNow</a></li>
+            
         </ul>
     </nav>
     <main class="container">
         <div class="grid">
             <section>
-                <h2>Payout Calculator</h2>
-                <h3>Manage your players and payouts</h3>
+                <hgroup>
+                    <h2>Payout Calculator</h2>
+                    <h3>Manage your players and payouts</h3>
+                </hgroup>
+                <!-- Form Header for Buttons -->
                 <div class="form-header">
-                    <div></div>
+                    <div></div> <!-- Placeholder for left alignment -->
                     <div class="button-group">
                         <button type="button" onclick="addPlayer()">Add Another Player</button>
                         <button type="button" onclick="resetForm()">Reset</button>
-                        <button type="button" id="calculate-payouts">Calculate Payouts</button>
+                        <button type="button" id="calculate-payouts" onclick="calculatePayouts()">Calculate Payouts</button>
+
+
                     </div>
                 </div>
-                <form id="tournament-form"></form>
+                <!-- Form Begins Here -->
+                <form id="tournament-form">
+                    <!-- Existing Player Groups Will Go Here -->
+                </form>
                 <h3>Payouts</h3>
-                <div id="payouts"></div>
+                <div id="payouts" class="payouts-box">
+                    <!-- Payouts will be displayed here -->
+                </div>
             </section>
         </div>
     </main>
-    <footer class="container">
-        <small>
-            <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a>
-        </small>
-    </footer>
+    
+
     <script>
         let playerCount = 1;
 
@@ -141,43 +151,6 @@
         payoutsElement.textContent = 'Error: Unable to calculate payouts.';
     });
 }
-
-
-        document.getElementById('calculate-payouts').addEventListener('click', function(event) {
-            event.preventDefault();
-            const players = [];
-            for (let i = 1; i < playerCount; i++) {
-                players.push({
-                    name: document.getElementById(`player${i}-name`).value,
-                    buyIn: parseFloat(document.getElementById(`player${i}-buy-in`).value),
-                    buyOut: parseFloat(document.getElementById(`player${i}-buy-out`).value)
-                });
-            }
-
-            fetch('/calculate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ players: players })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const payoutsElement = document.getElementById('payouts');
-                payoutsElement.innerHTML = ''; // Clear previous results
-                if (data.success) {
-                    data.transactions.forEach(transaction => {
-                        const p = document.createElement('p');
-                        p.textContent = transaction;
-                        payoutsElement.appendChild(p);
-                    });
-                } else {
-                    payoutsElement.textContent = 'Error: ' + data.error;
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
     </script>
 </body>
 </html>
-   

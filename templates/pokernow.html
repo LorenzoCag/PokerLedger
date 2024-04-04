@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>Poker Payout Manager - PokerNow</title>
+    <style>
+        /* Reusing styles from the main page for consistency */
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        #pokernow-form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Poker Cash Game Payout Calculator</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="/pokernow" class="active">PokerNow</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="grid">
+            <section>
+                <h2>PokerNow Payouts</h2>
+                <h3>Enter your PokerNow game URL</h3>
+                <!-- Form for PokerNow URL input -->
+                <form id="pokernow-form">
+                    <div class="input-group">
+                        <label for="pokernow-url">PokerNow URL</label>
+                        <input type="text" id="pokernow-url" name="pokernow-url" placeholder="Enter PokerNow URL" required>
+                    </div>
+                    <button type="button" id="calculate-pokernow" onclick="calculatePokerNowPayouts()">Calculate</button>
+                </form>
+                <h3>Payouts</h3>
+                <div id="pokernow-payouts">
+                    <!-- Payouts will be displayed here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function calculatePokerNowPayouts() {
+            event.preventDefault();
+            const pokernowURL = document.getElementById('pokernow-url').value;
+
+            fetch('/calculate-pokernow', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url: pokernowURL })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const payoutsElement = document.getElementById('pokernow-payouts');
+                payoutsElement.innerHTML = ''; // Clear previous results
+                if (data.success) {
+                    data.transactions.forEach(transaction => {
+                        const p = document.createElement('p');
+                        p.textContent = transaction;
+                        payoutsElement.appendChild(p);
+                    });
+                } else {
+                    // If there was an error, display it
+                    payoutsElement.textContent = 'Error: ' + data.error;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const payoutsElement = document.getElementById('pokernow-payouts');
+                payoutsElement.textContent = 'Error: Unable to calculate payouts.';
+            });
+        }
+    </script>
+</body>
+</html>
+
