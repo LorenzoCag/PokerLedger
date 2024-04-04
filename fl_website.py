@@ -76,11 +76,7 @@ def index():
             </section>
         </div>
     </main>
-    <footer class="container">
-        <small>
-            <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a>
-        </small>
-    </footer>
+    
 
     <script>
         let playerCount = 1;
