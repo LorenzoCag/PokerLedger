@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, render_template_string
-
 from poker import PokerPayoutCalculator
 
 app = Flask(__name__)
