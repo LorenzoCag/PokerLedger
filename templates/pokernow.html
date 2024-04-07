@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <title>Poker Payout Manager - PokerNow</title>
     <style>
-        /* Reusing styles from the main page for consistency */
         .form-header {
             display: flex;
             justify-content: space-between;
@@ -16,7 +15,7 @@
             display: flex;
             gap: 10px;
         }
-        #pokernow-form {
+        #csv-upload-form {
             margin-top: 20px;
             display: flex;
             flex-direction: column;
@@ -24,50 +23,57 @@
         .input-group {
             margin-bottom: 20px;
         }
+        .container {
+            padding-top: 20px;
+        }
+        button {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <nav class="container-fluid">
         <ul>
-            <li><strong>Poker Cash Game Payout Calculator</strong></li>
-        </ul>
-        <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/pokernow" class="active">PokerNow</a></li>
         </ul>
     </nav>
     <main class="container">
-        <div class="grid">
-            <section>
-                <h2>PokerNow Payouts</h2>
-                <h3>Enter your PokerNow game URL</h3>
-                <!-- Form for PokerNow URL input -->
-                <form id="pokernow-form">
+        <section>
+            <h2>PokerNow</h2>
+            <h3>Upload your ledger</h3>
+            <div class="form-header">
+                <form id="csv-upload-form" enctype="multipart/form-data">
                     <div class="input-group">
-                        <label for="pokernow-url">PokerNow URL</label>
-                        <input type="text" id="pokernow-url" name="pokernow-url" placeholder="Enter PokerNow URL" required>
+                        <label for="file-input">CSV File:</label>
+                        <input type="file" id="file-input" name="csvfile" accept=".csv" required>
                     </div>
-                    <button type="button" id="calculate-pokernow" onclick="calculatePokerNowPayouts()">Calculate</button>
+                    <div class="button-group">
+                        <button type="submit" id="upload-csv">Upload CSV</button>
+                    </div>
                 </form>
-                <h3>Payouts</h3>
-                <div id="pokernow-payouts">
-                    <!-- Payouts will be displayed here -->
-                </div>
-            </section>
-        </div>
+            </div>
+            <h3>Payouts</h3>
+            <div id="csv-payouts">
+                <!-- Payouts will be displayed here -->
+            </div>
+        </section>
     </main>
-
+    <footer class="container">
+        <small>
+            <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a>
+        </small>
+    </footer>
     <script>
-        function calculatePokerNowPayouts() {
-            event.preventDefault();
-            const pokernowURL = document.getElementById('pokernow-url').value;
+        document.getElementById('pokernow-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const fileInput = document.getElementById('csv-file');
+            const formData = new FormData();
+            formData.append('csvfile', fileInput.files[0]);
 
-            fetch('/calculate-pokernow', {
+            fetch('/upload_csv', { // Adjust the endpoint as necessary
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ url: pokernowURL })
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
@@ -80,16 +86,15 @@
                         payoutsElement.appendChild(p);
                     });
                 } else {
-                    // If there was an error, display it
                     payoutsElement.textContent = 'Error: ' + data.error;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 const payoutsElement = document.getElementById('pokernow-payouts');
-                payoutsElement.textContent = 'Error: Unable to calculate payouts.';
+                payoutsElement.textContent = 'Error: Unable to process CSV.';
             });
-        }
+        });
     </script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify, render_template_string, render_template
 
 from poker import PokerPayoutCalculator
+from parsing import parse_csv, process_player_data
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 
@@ -11,6 +14,26 @@ def index():
 @app.route('/pokernow')
 def pokernow():
     return render_template('pokernow.html')
+
+
+@app.route('/upload_csv', methods=['POST'])
+def upload_csv():
+    file = request.files['csvfile']
+    filename = secure_filename(file.filename)
+    filepath = os.path.join('path_to_temp_directory', filename)  # Replace with your desired path
+    file.save(filepath)
+
+    players_data = parse_csv(filepath)
+    transactions = process_player_data(players_data, PokerPayoutCalculator())
+    
+    
+    # Remove the temporary CSV file after processing
+    os.remove(filepath)
+
+    return jsonify({
+        'success': True if transactions else False,
+        'transactions': [str(transaction) for transaction in transactions] if transactions else "Failed to process CSV."
+    })
     
 
     # return render_template_string(html_content)
